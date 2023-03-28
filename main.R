@@ -7,6 +7,7 @@ library('devtools')
 library(pracma)
 library(ggplot2)
 library(tidyverse)
+library(anytime)
 
 # Installs pacman ("package manager") if needed
 if (!require("pacman")) install.packages("pacman")
@@ -17,7 +18,7 @@ pacman::p_load(pacman, rio,fluoR)
 # IMPORTING WITH RIO #######################################
 
 # CSV
-rio_csv <- import("~/Development/R/language-of-fungi/data/csv/01-03-23-4_pulmonarius-2_empty.csv")
+rio_csv <- import("~/Development/R/language-of-fungi/data/csv/01-03-23-4_pulmonarius-2_empty-naoh-binned_1min_ave.csv")
 
 # REFORMATING WITH fluoR ###################################
 
@@ -43,8 +44,8 @@ t5 = df$Trial5[df$Time >= start_time & df$Time <= end_time] - null_voltage
 t6 = df$Trial6[df$Time >= start_time & df$Time <= end_time] - null_voltage
 
 z.scores1 <- z_score(xvals = t1,
-                    mu = mean(t1), # manual input of mu/sigma optional;
-                    sigma = sd(t1)) # used for example purposes
+                     mu = mean(t1), # manual input of mu/sigma optional;
+                     sigma = sd(t1)) # used for example purposes
 
 z.scores2 <- z_score(xvals = t2,
                     mu = mean(t2), # manual input of mu/sigma optional;
@@ -72,25 +73,39 @@ df.long <- data.frame(
   Time = rep(df$Time[df$Time >= start_time & df$Time <= end_time], times = 6), # repeat time values by number of trials
   Values = c(z.scores1, z.scores2, z.scores3, z.scores4, z.scores5, z.scores6), # vector of trial values
   # Values = c(t1, t2, t3, t4, t5, t6),
-  Trial = c(rep("1", length(t1)),
-            rep("2", length(t2)),
-            rep("3", length(t3)),
-            rep("4", length(t4)),
-            rep("5", length(t5)),
-            rep("6", length(t6))
+  Trial = c(rep("Ostreatus 1", length(t1)),
+            rep("Ostreatus 2", length(t2)),
+            rep("Ostreatus 3", length(t3)),
+            rep("Ostreatus 4", length(t4)),
+            rep("Leer 1", length(t5)),
+            rep("Leer 2", length(t6))
 ))
 
 g <- ggplot(df.long) +
+  ggtitle("1. März 2023") +
+  
+  geom_hline(yintercept=1.65,alpha=0.3) + 
+  annotate("text", x=start_time, y=1.65, label="1.65") +
+  geom_hline(yintercept=-1.65,alpha=0.3) + 
+  annotate("text", x=start_time, y=-1.65, label="-1.65") +
+  
+  geom_vline(xintercept=1677683620,color="red",alpha=0.5) +
+  annotate("text", x=1677683620, y=8, label="a)",size = 18/.pt) +
+  geom_vline(xintercept=1677684840,color="red",alpha=0.5) +
+  annotate("text", x=1677684840, y=8, label="b)",size = 18/.pt) +
+  geom_vline(xintercept=1677686040,color="red",alpha=0.5) +
+  annotate("text", x=1677686040, y=8, label="c)",size = 18/.pt) + 
+  
   geom_line(aes(x = Time, y = Values,
-                color = Trial)) +
-  scale_color_manual(values = c("1" = 'green',
-                                "2" = 'blue',
-                                "3" = 'orange',
-                                "4" = 'purple',
-                                "5" = 'transparent',
-                                "6" = 'transparent'))
+                color = Trial), alpha=0.7) + 
+  ylab("z-Wert") +
+  xlab("Zeit") +
+  theme_minimal() + 
+  theme(text=element_text(size=18)) +
+  scale_colour_viridis_d() + 
+  scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M")))
 
-g + geom_hline(yintercept=1.65) + geom_hline(yintercept=-1.65)
+g
 
 # Plot Normal distribution ################################ 
 

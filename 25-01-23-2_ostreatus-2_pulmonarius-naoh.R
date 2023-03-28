@@ -2,13 +2,11 @@
 
 library(datasets)
 library('devtools')
-# devtools::install_github('atamalu/fluoR', build_vignettes = TRUE)
 library(pracma)
 library(ggplot2)
 library(tidyverse)
-
-# Installs pacman ("package manager") if needed
-if (!require("pacman")) install.packages("pacman")
+library(anytime)
+library("viridis")
 
 # Use pacman to load add-on packages as desired
 pacman::p_load(pacman, rio,fluoR) 
@@ -45,22 +43,27 @@ df.long <- data.frame(
 ))
 
 g <- ggplot(df.long) +
+  ggtitle("25. Januar 2023") +
+  
+  geom_vline(xintercept=1674656700,color="red",alpha=0.5) +
+  annotate("text", x=1674656700, y=12, label="a)",size = 18/.pt) +
+  geom_vline(xintercept=1674657300,color="red",alpha=0.5) +
+  annotate("text", x=1674657300, y=12, label="b)",size = 18/.pt) +
+  geom_vline(xintercept=1674657900,color="red",alpha=0.5) +
+  annotate("text", x=1674657900, y=12, label="c)",size = 18/.pt) +
+  geom_vline(xintercept=1674658500,color="red",alpha=0.5) +
+  annotate("text", x=1674658500, y=12, label="d)",size = 18/.pt) +
+  
   geom_line(aes(x = Time, y = Values,
-                color = Trial)) +
-  scale_color_manual(values = c("Ostreatus 1" = 'green',
-                                "Ostreatus 2" = 'blue',
-                                "Pulmonarius 1" = 'orange',
-                                "Pulmonarius 2" = 'purple'))
+                color = Trial),alpha=0.7) + 
+  ylab("Spannung [mV]") +
+  xlab("Zeit") +
+  theme_minimal() + 
+  theme(text=element_text(size=18)) + 
+  scale_colour_viridis_d() + 
+  scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M")))
 
-g + geom_vline(xintercept=1674656700,color="red") +
-  annotate("text", x=1674656700, y=20, label="a)") +
-  geom_vline(xintercept=1674657300,color="red") +
-  annotate("text", x=1674657300, y=20, label="b)") +
-  geom_vline(xintercept=1674657900,color="red") +
-  annotate("text", x=1674657900, y=20, label="c)") +
-  geom_vline(xintercept=1674658500,color="red") +
-  annotate("text", x=1674658500, y=20, label="d)") +
-  theme(text=element_text(size=18))
+g
 
 # CLEAN UP #################################################
 

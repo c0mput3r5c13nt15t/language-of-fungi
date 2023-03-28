@@ -2,13 +2,11 @@
 
 library(datasets)
 library('devtools')
-# devtools::install_github('atamalu/fluoR', build_vignettes = TRUE)
 library(pracma)
 library(ggplot2)
 library(tidyverse)
-
-# Installs pacman ("package manager") if needed
-if (!require("pacman")) install.packages("pacman")
+library(anytime)
+library("viridis")
 
 # Use pacman to load add-on packages as desired
 pacman::p_load(pacman, rio,fluoR) 
@@ -44,27 +42,30 @@ df.long <- data.frame(
             rep("Pulmonarius 2", length(p2)),
             rep("Pulmonarius 3", length(p3)),
             rep("Pulmonarius 4", length(p4)),
-            rep("Empty 1", length(e1)),
-            rep("Empty 2", length(e2))
+            rep("Leer 1", length(e1)),
+            rep("Leer 2", length(e2))
 ))
 
 g <- ggplot(df.long) +
+  ggtitle("1. März 2023") +
+  
+  geom_vline(xintercept=1677683620,color="red",alpha=0.5) +
+  annotate("text", x=1677683620, y=55, label="a)",size = 18/.pt) +
+  geom_vline(xintercept=1677684840,color="red",alpha=0.5) +
+  annotate("text", x=1677684840, y=55, label="b)",size = 18/.pt) +
+  geom_vline(xintercept=1677686040,color="red",alpha=0.5) +
+  annotate("text", x=1677686040, y=55, label="c)",size = 18/.pt) + 
+  
   geom_line(aes(x = Time, y = Values,
-                color = Trial)) +
-  scale_color_manual(values = c("Pulmonarius 1" = 'green',
-                                "Pulmonarius 2" = 'blue',
-                                "Pulmonarius 3" = 'orange',
-                                "Pulmonarius 4" = 'purple',
-                                "Empty 1" = 'yellow',
-                                "Empty 2" = 'yellow'))
+                color = Trial)) + 
+  ylab("Spannung [mV]") +
+  xlab("Zeit") +
+  theme_minimal() + 
+  theme(text=element_text(size=18)) + 
+  scale_colour_viridis_d() + 
+  scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M")))
 
-g + geom_vline(xintercept=1677683620,color="red") +
-  annotate("text", x=1677683620, y=20, label="a)") +
-  geom_vline(xintercept=1677684840,color="red") +
-  annotate("text", x=1677684840, y=20, label="b)") +
-  geom_vline(xintercept=1677686040,color="red") +
-  annotate("text", x=1677686040, y=20, label="c)") + 
-  theme(text=element_text(size=18))
+g
 
 # CLEAN UP #################################################
 
