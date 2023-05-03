@@ -2,11 +2,15 @@
 
 library(datasets)
 library('devtools')
+# devtools::install_github('atamalu/fluoR', build_vignettes = TRUE)
 library(pracma)
 library(ggplot2)
 library(tidyverse)
 library(anytime)
 library("viridis")
+
+# Installs pacman ("package manager") if needed
+if (!require("pacman")) install.packages("pacman")
 
 # Use pacman to load add-on packages as desired
 pacman::p_load(pacman, rio,fluoR) 
@@ -44,21 +48,21 @@ df.long <- data.frame(
 g <- ggplot(df.long) +
   ggtitle("14. Februar 2023") +
   
-  geom_vline(xintercept=1676382240,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676382240,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676382240, y=10, label="a)",size = 18/.pt) +
-  geom_vline(xintercept=1676382840,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676382840,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676382840, y=10, label="b)",size = 18/.pt) +
-  geom_vline(xintercept=1676383500,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676383500,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676383500, y=10, label="c)",size = 18/.pt) +
-  geom_vline(xintercept=1676384100,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676384100,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676384100, y=10, label="d)",size = 18/.pt) +
-  geom_vline(xintercept=1676384700,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676384700,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676384700, y=10, label="e)",size = 18/.pt) +
-  geom_vline(xintercept=1676385300,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676385300,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676385300, y=10, label="f)",size = 18/.pt) +
-  geom_vline(xintercept=1676385900,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676385900,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676385900, y=10, label="g)",size = 18/.pt) +
-  geom_vline(xintercept=1676386500,color="red",alpha=0.5) +
+  geom_vline(xintercept=1676386500,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1676386500, y=10, label="h)",size = 18/.pt) +
   
   geom_line(aes(x = Time, y = Values,
@@ -68,7 +72,9 @@ g <- ggplot(df.long) +
   theme_minimal() + 
   theme(text=element_text(size=18)) +
   scale_colour_viridis_d() + 
-  scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M")))
+  scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M"))) + 
+  theme(legend.position = c(.32, .85)) + 
+  theme(legend.background = element_rect(fill = "white"))
 
 g
 

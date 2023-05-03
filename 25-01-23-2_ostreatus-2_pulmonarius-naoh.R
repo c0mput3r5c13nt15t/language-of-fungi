@@ -2,11 +2,15 @@
 
 library(datasets)
 library('devtools')
+# devtools::install_github('atamalu/fluoR', build_vignettes = TRUE)
 library(pracma)
 library(ggplot2)
 library(tidyverse)
 library(anytime)
 library("viridis")
+
+# Installs pacman ("package manager") if needed
+if (!require("pacman")) install.packages("pacman")
 
 # Use pacman to load add-on packages as desired
 pacman::p_load(pacman, rio,fluoR) 
@@ -45,13 +49,13 @@ df.long <- data.frame(
 g <- ggplot(df.long) +
   ggtitle("25. Januar 2023") +
   
-  geom_vline(xintercept=1674656700,color="red",alpha=0.5) +
+  geom_vline(xintercept=1674656700,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1674656700, y=12, label="a)",size = 18/.pt) +
-  geom_vline(xintercept=1674657300,color="red",alpha=0.5) +
+  geom_vline(xintercept=1674657300,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1674657300, y=12, label="b)",size = 18/.pt) +
-  geom_vline(xintercept=1674657900,color="red",alpha=0.5) +
+  geom_vline(xintercept=1674657900,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1674657900, y=12, label="c)",size = 18/.pt) +
-  geom_vline(xintercept=1674658500,color="red",alpha=0.5) +
+  geom_vline(xintercept=1674658500,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1674658500, y=12, label="d)",size = 18/.pt) +
   
   geom_line(aes(x = Time, y = Values,
@@ -61,7 +65,9 @@ g <- ggplot(df.long) +
   theme_minimal() + 
   theme(text=element_text(size=18)) + 
   scale_colour_viridis_d() + 
-  scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M")))
+  scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M"))) + 
+  theme(legend.position = c(.87, .9)) + 
+  theme(legend.background = element_rect(fill = "white"))
 
 g
 
