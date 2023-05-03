@@ -50,13 +50,13 @@ g <- ggplot(df.long) +
   ggtitle("25. Januar 2023") +
   
   geom_vline(xintercept=1674656700,color="red",alpha=0.5, linetype="dashed") +
-  annotate("text", x=1674656700, y=12, label="a)",size = 18/.pt) +
+  annotate("text", x=1674656700, y=16, label="a)",size = 18/.pt) +
   geom_vline(xintercept=1674657300,color="red",alpha=0.5, linetype="dashed") +
-  annotate("text", x=1674657300, y=12, label="b)",size = 18/.pt) +
+  annotate("text", x=1674657300, y=16, label="b)",size = 18/.pt) +
   geom_vline(xintercept=1674657900,color="red",alpha=0.5, linetype="dashed") +
-  annotate("text", x=1674657900, y=12, label="c)",size = 18/.pt) +
+  annotate("text", x=1674657900, y=16, label="c)",size = 18/.pt) +
   geom_vline(xintercept=1674658500,color="red",alpha=0.5, linetype="dashed") +
-  annotate("text", x=1674658500, y=12, label="d)",size = 18/.pt) +
+  annotate("text", x=1674658500, y=16, label="d)",size = 18/.pt) +
   
   geom_line(aes(x = Time, y = Values,
                 color = Trial),alpha=0.7) + 
@@ -69,7 +69,12 @@ g <- ggplot(df.long) +
   theme(legend.position = c(.87, .9)) + 
   theme(legend.background = element_rect(fill = "white"))
 
+png(file="./graphs/25-01-23-2_ostreatus-2_pulmonarius-naoh.png",
+    width=750, height=400)
+
 g
+
+dev.off()
 
 # CLEAN UP #################################################
 

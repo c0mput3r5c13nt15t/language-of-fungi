@@ -68,10 +68,15 @@ g <- ggplot(df.long) +
   theme(text=element_text(size=18)) + 
   scale_colour_viridis_d() + 
   scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M"))) + 
-  theme(legend.position = c(.15, .85)) + 
+  theme(legend.position = c(.15, .75)) + 
   theme(legend.background = element_rect(fill = "white"))
 
+png(file="./graphs/01-03-23-4_pulmonarius-2_empty-naoh.png",
+    width=750, height=400)
+
 g
+
+dev.off()
 
 # CLEAN UP #################################################
 
@@ -79,7 +84,7 @@ g
 rm(list = ls()) 
 
 # Clear plots
-dev.off()
+# dev.off()
 
 # Clear packages
 p_unload(all)  # Remove all add-ons

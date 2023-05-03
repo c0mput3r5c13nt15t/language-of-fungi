@@ -43,9 +43,6 @@ o2 = df$Trial6[df$Time >= start_time & df$Time <= end_time] - null_voltage
 o3 = df$Trial7[df$Time >= start_time & df$Time <= end_time] - null_voltage
 o4 = df$Trial8[df$Time >= start_time & df$Time <= end_time] - null_voltage
 
-mu = mean(o1)
-sigma = sd()
-
 z.scores.o1 <- z_score(xvals = o1,
                      mu = mean(o1), # manual input of mu/sigma optional;
                      sigma = sd(o1)) # used for example purposes
@@ -111,10 +108,17 @@ g <- ggplot(df.long) +
   theme(text=element_text(size=18)) +
   scale_colour_viridis_d() + 
   scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M"))) +
-  theme(legend.position = c(.9, .85)) + 
+  theme(legend.position = c(.915, .85)) + 
   theme(legend.background = element_rect(fill = "white"))
 
+# attach -binned_1min_ave for binned data
+
+png(file="./graphs/07-03-23-4_ostreatus-4_empty-naoh_z-scores.png",
+    width=750, height=400)
+
 g
+
+dev.off()
 
 # CLEAN UP #################################################
 

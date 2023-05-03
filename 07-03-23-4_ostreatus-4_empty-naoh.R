@@ -77,7 +77,12 @@ g <- ggplot(df.long) +
   theme(legend.position = c(.85, .15)) + 
   theme(legend.background = element_rect(fill = "white"))
 
+png(file="./graphs/07-03-23-4_ostreatus-4_empty-naoh.png",
+    width=750, height=400)
+
 g
+
+dev.off()
 
 # CLEAN UP #################################################
 

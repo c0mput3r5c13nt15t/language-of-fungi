@@ -29,8 +29,6 @@ df <- format_data(rio_csv)
 start_time = 1674650820
 end_time = 1674654420
 
-test = anytime(start_time)
-
 o1 = df$Trial1[df$Time >= start_time & df$Time <= end_time]
 o2 = df$Trial2[df$Time >= start_time & df$Time <= end_time]
 o3 = df$Trial3[df$Time >= start_time & df$Time <= end_time]
@@ -69,10 +67,15 @@ g <- ggplot(df.long) +
   theme(text=element_text(size=18)) + 
   scale_colour_viridis_d() + 
   scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M"))) +
-  theme(legend.position = c(.23, .85)) + 
+  theme(legend.position = c(.9, .85)) + 
   theme(legend.background = element_rect(fill = "white"))
 
+png(file="./graphs/25-01-23-4_ostreatus-naoh.png",
+    width=750, height=400)
+
 g
+
+dev.off()
 
 # CLEAN UP #################################################
 

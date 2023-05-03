@@ -79,7 +79,12 @@ g <- ggplot(df.long) +
   theme(legend.position = c(.15, .85)) + 
   theme(legend.background = element_rect(fill = "white"))
 
+png(file="./graphs/18-01-23-3_ostreatus-basispotenzial.png",
+    width=750, height=400)
+
 g
+
+dev.off()
 
 # CLEAN UP #################################################
 

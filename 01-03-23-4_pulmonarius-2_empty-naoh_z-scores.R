@@ -94,11 +94,11 @@ g <- ggplot(df.long) +
   annotate("text", x=start_time, y=-1.65, label="-1.65") +
   
   geom_vline(xintercept=1677683620,color="red",alpha=0.5, linetype="dashed") +
-  annotate("text", x=1677683620, y=8, label="a)",size = 18/.pt) +
+  annotate("text", x=1677683620, y=45, label="a)",size = 18/.pt) +
   geom_vline(xintercept=1677684840,color="red",alpha=0.5, linetype="dashed") +
-  annotate("text", x=1677684840, y=8, label="b)",size = 18/.pt) +
+  annotate("text", x=1677684840, y=45, label="b)",size = 18/.pt) +
   geom_vline(xintercept=1677686040,color="red",alpha=0.5, linetype="dashed") +
-  annotate("text", x=1677686040, y=8, label="c)",size = 18/.pt) + 
+  annotate("text", x=1677686040, y=45, label="c)",size = 18/.pt) + 
   
   geom_line(aes(x = Time, y = Values,
                 color = Trial), alpha=0.7) + 
@@ -108,16 +108,17 @@ g <- ggplot(df.long) +
   theme(text=element_text(size=18)) +
   scale_colour_viridis_d() + 
   scale_x_continuous(labels = (function(var) format(anytime(var), "%H:%M"))) +
-  theme(legend.position = c(.15, .85)) + 
+  theme(legend.position = c(.15, .77)) + 
   theme(legend.background = element_rect(fill = "white"))
+
+# attach -binned_1min_ave for binned data
+
+png(file="./graphs/01-03-23-4_pulmonarius-2_empty-naoh_z-scores.png",
+    width=750, height=400)
 
 g
 
-# Plot Normal distribution ################################ 
-
-x <- z.scores3
-y <- dnorm(x)
-plot(x,y, type = "l", lwd = 2, axes = FALSE, xlab = "", ylab = "")
+dev.off()
 
 # CLEAN UP #################################################
 

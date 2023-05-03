@@ -76,7 +76,12 @@ g <- ggplot(df.long) +
   theme(legend.position = c(.32, .85)) + 
   theme(legend.background = element_rect(fill = "white"))
 
+png(file="./graphs/14-02-23-2_ostreatus-2_pulmonarius-alternating_2_naoh_2_h2O.png",
+    width=750, height=400)
+
 g
+
+dev.off()
 
 # CLEAN UP #################################################
 
