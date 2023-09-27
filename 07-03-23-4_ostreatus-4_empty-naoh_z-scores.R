@@ -71,8 +71,8 @@ z.scores.e2 <- z_score(xvals = e2,
 
 df.long <- data.frame(
   Time = rep(df$Time[df$Time >= start_time & df$Time <= end_time], times = 6), # repeat time values by number of trials
-  Values = c(z.scores.o1, z.scores.o2, z.scores.o3, z.scores.o4, z.scores.e1, z.scores.e2), # vector of trial values
-  # Values = c(o1,o2,o3,o4,e1,e2),
+  # Values = c(z.scores.o1, z.scores.o2, z.scores.o3, z.scores.o4, z.scores.e1, z.scores.e2), # vector of trial values
+  Values = c(o1,o2,o3,o4,e1,e2),
   Trial = c(rep("Ostreatus 1", length(o1)),
             rep("Ostreatus 2", length(o2)),
             rep("Ostreatus 3", length(o3)),
@@ -84,10 +84,10 @@ df.long <- data.frame(
 g <- ggplot(df.long) +
   ggtitle("7. März 2023") +
   
-  geom_hline(yintercept=1.65,alpha=0.3, linetype="longdash") + 
-  annotate("text", x=start_time, y=1.65, label="1.65") +
-  geom_hline(yintercept=-1.65,alpha=0.3, linetype="longdash") + 
-  annotate("text", x=start_time, y=-1.65, label="-1.65") +
+  # geom_hline(yintercept=1.65,alpha=0.3, linetype="longdash") + 
+  # annotate("text", x=start_time, y=1.65, label="1.65") +
+  # geom_hline(yintercept=-1.65,alpha=0.3, linetype="longdash") + 
+  # annotate("text", x=start_time, y=-1.65, label="-1.65") +
   
   geom_vline(xintercept=1678196700,color="red",alpha=0.5, linetype="dashed") +
   annotate("text", x=1678196700, y=16, label="a)",size = 18/.pt) +
@@ -102,7 +102,7 @@ g <- ggplot(df.long) +
   
   geom_line(aes(x = Time, y = Values,
                 color = Trial), alpha=0.7) + 
-  ylab("z-Wert") +
+  ylab("Spannungsdifferenz [mV]") +
   xlab("Zeit") +
   theme_minimal() + 
   theme(text=element_text(size=18)) +
@@ -113,7 +113,7 @@ g <- ggplot(df.long) +
 
 # attach -binned_1min_ave for binned data
 
-png(file="./graphs/07-03-23-4_ostreatus-4_empty-naoh_z-scores.png",
+png(file="./graphs/07-03-23-4_ostreatus-4_empty-naoh_difference.png",
     width=750, height=400)
 
 g
