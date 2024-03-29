@@ -4,4 +4,4 @@ In 11th grade I did a research project on the language of fungi. The aim of the 
 
 The results can be found in the resulting [paper](Die%20Sprache%20der%20Pilze.pdf) (only in German).
 
-The inspiration for the project come from the work of ![Andrew Adamatzky](https://people.uwe.ac.uk/Person/AndrewAdamatzky).
+The inspiration for the project come from the work of [Andrew Adamatzky](https://people.uwe.ac.uk/Person/AndrewAdamatzky).
